@@ -152,31 +152,49 @@ public class JanelaPrincipal extends JFrame {
             return;
         }
         
-        // Aqui você continuaria o fluxo de compra de bilhetes
-        JOptionPane.showMessageDialog(
-            this,
-            "Selecionado:\nFilme: " + sessaoSeleccionada.getFilme().getNome() + 
-            "\nSessão: " + sessaoSeleccionada.getDataHoraFormatada() + 
-            "\nSala: " + sessaoSeleccionada.getSala() +
-            "\nPreço: " + sessaoSeleccionada.getPreco() + " €",
-            "Informações da Compra",
-            JOptionPane.INFORMATION_MESSAGE
-        );
+        // Mostrar a janela de seleção de lugar
+        mostrarJanelaSelecaoLugar(sessaoSeleccionada);
+    }
+    
+    private void mostrarJanelaSelecaoLugar(Sessao sessaoSeleccionada) {
+        // Criar o painel de seleção de lugar
+        JanelaSelecaoLugar painelLugares = new JanelaSelecaoLugar(sessaoSeleccionada, null, null);
         
-        // Voltar para a página inicial após a compra
-        voltarParaPainelPrincipal();
+        // Adicionar listener para o botão Voltar
+        painelLugares.getBtnVoltar().addActionListener(e -> {
+            // Voltar para a seleção de sessão
+            mostrarJanelaSelecaoSessao(sessaoSeleccionada.getFilme());
+        });
+        
+        // Adicionar listener para o botão Próximo, mas sem redirecionamento
+        painelLugares.getBtnProximo().addActionListener(e -> {
+            String lugarSelecionado = painelLugares.getLugarSelecionado();
+            if (lugarSelecionado != null) {
+                // Apenas mostra uma mensagem sem finalizar a compra
+                JOptionPane.showMessageDialog(
+                    this,
+                    "Lugar selecionado: " + lugarSelecionado + "\n" +
+                    "Preço: " + String.format("%.2f €", painelLugares.getPrecoTotal()),
+                    "Informações do Lugar",
+                    JOptionPane.INFORMATION_MESSAGE
+                );
+                // Permanece na tela de seleção de lugar
+            } else {
+                JOptionPane.showMessageDialog(this, "Por favor, selecione um lugar primeiro.");
+            }
+        });
+        
+        trocarPainel(painelLugares);
     }
 
     private void voltarParaPainelPrincipal() {
         trocarPainel(painelPrincipal);
-    }
-
-    private void trocarPainel(JPanel novoPainel) {
+    }    private void trocarPainel(JPanel novoPainel) {
         setContentPane(novoPainel);
         painelAtual = novoPainel;
         
         // Ajustar o tamanho da janela para melhor exibir os painéis
-        if (novoPainel instanceof JanelaSelecaoFilme || novoPainel instanceof JanelaSelecaoSessao) {
+        if (novoPainel instanceof JanelaSelecaoFilme || novoPainel instanceof JanelaSelecaoSessao || novoPainel instanceof JanelaSelecaoLugar) {
             setSize(900, 600);
         } else {
             setSize(600, 400);
