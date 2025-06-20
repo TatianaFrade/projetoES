@@ -9,6 +9,7 @@ import java.util.Map;
 public class JanelaSelecaoLugar extends JPanel {
     private JButton btnProximo;
     private JButton btnVoltar;
+    private JButton btnCancelar;
     private Sessao sessao;
     private JPanel painelLugarSelecionado;
     private Lugar lugarSelecionado;
@@ -23,8 +24,7 @@ public class JanelaSelecaoLugar extends JPanel {
     
     // Mapa que associa painéis (componentes visuais) aos objetos Lugar
     private Map<JPanel, Lugar> mapaPainelLugar;
-    
-    public JanelaSelecaoLugar(Sessao sessao, ActionListener onVoltar, ActionListener onProximo) {
+      public JanelaSelecaoLugar(Sessao sessao, ActionListener onVoltar, ActionListener onProximo, ActionListener onCancelar) {
         this.sessao = sessao;
         this.mapaPainelLugar = new HashMap<>();
         setLayout(new BorderLayout(10, 10));
@@ -36,7 +36,7 @@ public class JanelaSelecaoLugar extends JPanel {
         configurarPainelCentral();
         
         // Configurar botões de navegação
-        configurarBotoes(onVoltar, onProximo);
+        configurarBotoes(onVoltar, onProximo, onCancelar);
     }
     
     private void configurarPainelTitulo() {
@@ -79,8 +79,7 @@ public class JanelaSelecaoLugar extends JPanel {
         painelCentral.add(criarPainelLegenda(), BorderLayout.SOUTH);
         add(painelCentral, BorderLayout.CENTER);
     }
-    
-    private JPanel criarPainelLugares() {
+      private JPanel criarPainelLugares() {
         // Painel principal com borderlayout
         JPanel painelPrincipal = new JPanel(new BorderLayout(0, 10));
         
@@ -97,9 +96,9 @@ public class JanelaSelecaoLugar extends JPanel {
         painelTela.add(telaCinema);
         painelPrincipal.add(painelTela, BorderLayout.NORTH);
         
-        // Determinar o número de filas e colunas com base na sala
-        int filas = sessao.getSala().getLugares().size() / 10; // Assumindo que cada sala tem 10 colunas
-        int colunas = 10; // Número padrão de colunas
+        // Definir dimensões fixas para todas as salas
+        int filas = 8;
+        int colunas = 10;
         
         // Criar painel principal com GridBagLayout para adicionar labels de filas e colunas
         JPanel painelGrid = new JPanel(new GridBagLayout());
@@ -123,6 +122,22 @@ public class JanelaSelecaoLugar extends JPanel {
             colLabel.setPreferredSize(new Dimension(35, 20));
             colLabel.setHorizontalAlignment(SwingConstants.CENTER);
             painelGrid.add(colLabel, gbc);
+        }
+        
+        // Pré-verificar se a sala tem todos os lugares necessários
+        if (sessao != null && sessao.getSala() != null) {
+            Sala sala = sessao.getSala();
+            
+            // Garantir que os lugares existem para cada posição
+            for (int i = 0; i < filas; i++) {
+                for (int j = 0; j < colunas; j++) {
+                    if (sala.getLugar(i, j) == null) {
+                        // Criar o lugar se não existir
+                        Lugar novoLugar = Lugar.criarLugarPorPosicao(i, j);
+                        sala.getLugares().add(novoLugar);
+                    }
+                }
+            }
         }
         
         // Criar grid de lugares com labels de fila
@@ -151,18 +166,17 @@ public class JanelaSelecaoLugar extends JPanel {
         painelPrincipal.add(painelCentralizador, BorderLayout.CENTER);
         
         return painelPrincipal;
-    }
-      // Método auxiliar para criar um lugar individual com tipo fixo
+    }    // Método auxiliar para criar um lugar individual
     private JPanel criarLugar(int fila, int coluna) {
         // Obter o objeto Lugar da sala
         Lugar lugar = sessao.getSala().getLugar(fila, coluna);
         
         if (lugar == null) {
-            // Caso o lugar não exista na sala (não deve acontecer, mas como precaução)
-            JPanel panel = new JPanel();
-            panel.setPreferredSize(new Dimension(35, 35));
-            panel.setBackground(Color.WHITE);
-            return panel;
+            // Se o lugar não existir na sala, vamos criar um novo lugar
+            System.out.println("Criando lugar para fila " + fila + ", coluna " + coluna);
+            lugar = Lugar.criarLugarPorPosicao(fila, coluna);
+            // Adicionar o lugar à sala
+            sessao.getSala().getLugares().add(lugar);
         }
         
         // Criar o componente visual para representar o lugar
@@ -172,8 +186,8 @@ public class JanelaSelecaoLugar extends JPanel {
         // Aplicar as propriedades visuais de acordo com o objeto Lugar
         painelLugar.setBackground(lugar.getCorFundo());
         painelLugar.setOpaque(true); // Importante para garantir que a cor seja exibida
-          // Adicionar label com identificação do lugar usando número sequencial
-        // Formato: "Letra da fila + Número sequencial na fila" (ex: A1, A2, B1, B2...)
+        
+        // Adicionar label com identificação do lugar
         char filaLetra = (char)('A' + lugar.getFila()); // Converte número da fila em letra (A, B, C...)
         int numeroAssentoSequencial = lugar.getColuna() + 1; // Coluna + 1 para números sequenciais
         JLabel labelLugar = new JLabel(filaLetra + "" + numeroAssentoSequencial);
@@ -256,9 +270,12 @@ public class JanelaSelecaoLugar extends JPanel {
         
         return painelLegenda;
     }
-    
-    private void configurarBotoes(ActionListener onVoltar, ActionListener onProximo) {
-        JPanel painelBotoes = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+      private void configurarBotoes(ActionListener onVoltar, ActionListener onProximo, ActionListener onCancelar) {
+        // Botão Cancelar à esquerda
+        btnCancelar = new JButton("Cancelar");
+        btnCancelar.addActionListener(onCancelar != null ? onCancelar : e -> {});
+        
+        // Botões de navegação à direita
         btnVoltar = new JButton("Voltar");
         btnProximo = new JButton("Próximo");
         
@@ -266,9 +283,20 @@ public class JanelaSelecaoLugar extends JPanel {
         btnProximo.addActionListener(onProximo != null ? onProximo : e -> {});
         btnProximo.setEnabled(false); // Desabilitado até que um lugar seja selecionado
         
-        painelBotoes.add(btnVoltar);
-        painelBotoes.add(btnProximo);
-        add(painelBotoes, BorderLayout.SOUTH);
+        // Layout para posicionar botões (Cancelar à esquerda, Voltar e Próximo à direita)
+        JPanel leftButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        leftButtonPanel.add(btnCancelar);
+        
+        JPanel rightButtonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        rightButtonPanel.add(btnVoltar);
+        rightButtonPanel.add(btnProximo);
+        
+        // Painel para organizar os dois grupos de botões
+        JPanel navigationPanel = new JPanel(new BorderLayout());
+        navigationPanel.add(leftButtonPanel, BorderLayout.WEST);
+        navigationPanel.add(rightButtonPanel, BorderLayout.EAST);
+        
+        add(navigationPanel, BorderLayout.SOUTH);
     }
     
     private void selecionarLugar(JPanel painel) {
@@ -293,10 +321,10 @@ public class JanelaSelecaoLugar extends JPanel {
         this.lugarSelecionado = lugar;
         btnProximo.setEnabled(lugar != null);
     }
-    
-    // Getters
+      // Getters
     public JButton getBtnProximo() { return btnProximo; }
     public JButton getBtnVoltar() { return btnVoltar; }
+    public JButton getBtnCancelar() { return btnCancelar; }
     public Sessao getSessao() { return sessao; }
     
     public String getLugarSelecionado() {
