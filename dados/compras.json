@@ -486,5 +486,32 @@
     "metodoPagamento": "Multibanco",
     "confirmada": false,
     "idUsuario": "tati"
+  },
+  {
+    "id": "5d844c19-5b39-4dae-a3a4-757fef75e97b",
+    "dataHora": "Jun 20, 2025, 1:30:59 PM",
+    "idSessao": "7f6a9255-4978-4c16-8944-5539489854af",
+    "idLugar": "A10",
+    "precoBase": 7.5,
+    "itensBar": [
+      {
+        "nome": "Pipoca Média",
+        "descricao": "Pipoca salgada tamanho médio",
+        "preco": 4.5,
+        "categoria": "Comida",
+        "disponivel": true
+      },
+      {
+        "nome": "Nachos com Queijo",
+        "descricao": "Porção de nachos com molho de queijo",
+        "preco": 7.5,
+        "categoria": "Comida",
+        "disponivel": true
+      }
+    ],
+    "precoTotal": 19.5,
+    "metodoPagamento": "Multibanco",
+    "confirmada": false,
+    "idUsuario": "tati"
   }
 ]
