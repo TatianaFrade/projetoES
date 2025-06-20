@@ -1309,7 +1309,7 @@
           "fila": 4,
           "coluna": 9,
           "vip": false,
-          "ocupado": false
+          "ocupado": true
         },
         {
           "fila": 5,
@@ -1492,7 +1492,7 @@
           "ocupado": false
         }
       ],
-      "lugaresOcupados": 7
+      "lugaresOcupados": 8
     },
     "preco": 7.5
   },

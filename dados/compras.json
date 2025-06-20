@@ -301,5 +301,190 @@
     "metodoPagamento": "Multibanco",
     "confirmada": false,
     "idUsuario": "tati"
+  },
+  {
+    "id": "34a6f33b-ab3d-4374-afa2-a9323c6bd3bc",
+    "dataHora": "Jun 20, 2025, 8:56:42 AM",
+    "idSessao": "55f5f746-496d-4131-a081-2f98976c2712",
+    "idLugar": "E10",
+    "precoBase": 7.5,
+    "itensBar": [
+      {
+        "nome": "Pipoca Média",
+        "descricao": "Pipoca salgada tamanho médio",
+        "preco": 4.5,
+        "categoria": "Comida",
+        "disponivel": true
+      }
+    ],
+    "precoTotal": 12.0,
+    "metodoPagamento": "Multibanco",
+    "confirmada": false,
+    "idUsuario": "tati"
+  },
+  {
+    "id": "c6f0ab61-bffe-4c6c-b154-e2cbf1df9c0b",
+    "dataHora": "Jun 20, 2025, 10:28:04 AM",
+    "precoBase": 0.0,
+    "itensBar": [
+      {
+        "nome": "Pipoca Média",
+        "descricao": "Pipoca salgada tamanho médio",
+        "preco": 4.5,
+        "categoria": "Comida",
+        "disponivel": true
+      },
+      {
+        "nome": "Combo 2",
+        "descricao": "Pipoca grande + 2 Refrigerantes 300ml",
+        "preco": 10.0,
+        "categoria": "Combo",
+        "disponivel": true
+      }
+    ],
+    "precoTotal": 14.5,
+    "metodoPagamento": "Multibanco",
+    "confirmada": false
+  },
+  {
+    "id": "106ee767-3893-4519-bf23-818b3f249a79",
+    "dataHora": "Jun 20, 2025, 10:28:20 AM",
+    "precoBase": 0.0,
+    "itensBar": [
+      {
+        "nome": "Pipoca Pequena",
+        "descricao": "Pipoca salgada tamanho pequeno",
+        "preco": 3.5,
+        "categoria": "Comida",
+        "disponivel": true
+      },
+      {
+        "nome": "Combo 2",
+        "descricao": "Pipoca grande + 2 Refrigerantes 300ml",
+        "preco": 10.0,
+        "categoria": "Combo",
+        "disponivel": true
+      }
+    ],
+    "precoTotal": 13.5,
+    "metodoPagamento": "Multibanco",
+    "confirmada": false,
+    "idUsuario": "tati"
+  },
+  {
+    "id": "b49bf56d-f0c4-4d28-96d8-e3a457afa5a2",
+    "dataHora": "Jun 20, 2025, 10:34:22 AM",
+    "precoBase": 0.0,
+    "itensBar": [
+      {
+        "nome": "Refrigerante 300ml",
+        "descricao": "Refrigerante em lata",
+        "preco": 3.0,
+        "categoria": "Bebida",
+        "disponivel": true
+      },
+      {
+        "nome": "Pipoca Grande",
+        "descricao": "Pipoca salgada tamanho grande",
+        "preco": 5.5,
+        "categoria": "Comida",
+        "disponivel": true
+      },
+      {
+        "nome": "Refrigerante 500ml",
+        "descricao": "Refrigerante em garrafa",
+        "preco": 4.0,
+        "categoria": "Bebida",
+        "disponivel": true
+      }
+    ],
+    "precoTotal": 12.5,
+    "metodoPagamento": "Multibanco",
+    "confirmada": false
+  },
+  {
+    "id": "f64fd5be-c559-4a6d-ab60-22568b084554",
+    "dataHora": "Jun 20, 2025, 10:34:42 AM",
+    "precoBase": 0.0,
+    "itensBar": [
+      {
+        "nome": "Pipoca Pequena",
+        "descricao": "Pipoca salgada tamanho pequeno",
+        "preco": 3.5,
+        "categoria": "Comida",
+        "disponivel": true
+      },
+      {
+        "nome": "Pipoca Caramelizada",
+        "descricao": "Pipoca doce com caramelo",
+        "preco": 6.0,
+        "categoria": "Comida",
+        "disponivel": true
+      },
+      {
+        "nome": "Água Mineral 500ml",
+        "descricao": "Água mineral sem gás",
+        "preco": 2.5,
+        "categoria": "Bebida",
+        "disponivel": true
+      }
+    ],
+    "precoTotal": 12.0,
+    "metodoPagamento": "Multibanco",
+    "confirmada": false,
+    "idUsuario": "tati"
+  },
+  {
+    "id": "e38ddf2b-eccb-42b7-a552-99112506d944",
+    "dataHora": "Jun 20, 2025, 10:43:38 AM",
+    "precoBase": 0.0,
+    "itensBar": [
+      {
+        "nome": "Nachos com Queijo",
+        "descricao": "Porção de nachos com molho de queijo",
+        "preco": 7.5,
+        "categoria": "Comida",
+        "disponivel": true
+      }
+    ],
+    "precoTotal": 7.5,
+    "metodoPagamento": "Multibanco",
+    "confirmada": false,
+    "idUsuario": "tati"
+  },
+  {
+    "id": "c2209bf7-68ea-486d-b675-cfd3d4e04a52",
+    "dataHora": "Jun 20, 2025, 10:47:13 AM",
+    "precoBase": 0.0,
+    "itensBar": [
+      {
+        "nome": "Nachos com Queijo",
+        "descricao": "Porção de nachos com molho de queijo",
+        "preco": 7.5,
+        "categoria": "Comida",
+        "disponivel": true
+      }
+    ],
+    "precoTotal": 7.5,
+    "metodoPagamento": "Multibanco",
+    "confirmada": false
+  },
+  {
+    "id": "43ba0bb2-45d3-403a-95b1-beaaabff78d6",
+    "dataHora": "Jun 20, 2025, 10:47:32 AM",
+    "precoBase": 0.0,
+    "itensBar": [
+      {
+        "nome": "Combo 2",
+        "descricao": "Pipoca grande + 2 Refrigerantes 300ml",
+        "preco": 10.0,
+        "categoria": "Combo",
+        "disponivel": true
+      }
+    ],
+    "precoTotal": 10.0,
+    "metodoPagamento": "Multibanco",
+    "confirmada": false,
+    "idUsuario": "tati"
   }
 ]
