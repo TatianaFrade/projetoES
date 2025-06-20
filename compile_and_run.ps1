@@ -2,7 +2,7 @@
 New-Item -ItemType Directory -Force -Path "target\classes"
 
 # Set classpath for compilation
-$CLASSPATH = "libs\gson-2.10.1.jar;."
+$CLASSPATH = "lib\gson-2.10.1.jar;."
 
 # Clean target directory
 Remove-Item -Path "target\classes\*" -Recurse -Force -ErrorAction SilentlyContinue
@@ -14,10 +14,9 @@ javac -encoding UTF-8 -d "target\classes" -cp $CLASSPATH "src\main\java\pt\iplei
 # Check if compilation was successful
 if ($LASTEXITCODE -eq 0) {
     Write-Host "Compilation successful!" -ForegroundColor Green
-    
-    # Run the application
+      # Run the application
     Write-Host "Running the application..." -ForegroundColor Green
-    java -cp "target\classes;libs\gson-2.10.1.jar" pt.ipleiria.estg.ei.dei.esoft.Main
+    java -cp "target\classes;lib\gson-2.10.1.jar" pt.ipleiria.estg.ei.dei.esoft.Main
 } else {
     Write-Host "Compilation failed!" -ForegroundColor Red
 }

@@ -1,0 +1,9 @@
+// No topo da classe JanelaPrincipal, adicione esta linha de import logo abaixo dos outros imports:
+// import pt.ipleiria.estg.ei.dei.esoft.Bilhete;
+
+// E substitua a declaração de listas de Bilhete por:
+// List<pt.ipleiria.estg.ei.dei.esoft.Bilhete> bilhetes = new ArrayList<>();
+// bilhetes.add(new pt.ipleiria.estg.ei.dei.esoft.Bilhete(sessao, lugar));
+
+// Ou, em outro lugar onde use a classe Bilhete:
+// List<pt.ipleiria.estg.ei.dei.esoft.Bilhete> bilhetesVazios = new ArrayList<>();

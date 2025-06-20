@@ -11,12 +11,11 @@ echo Java files found:
 type java_files.txt
 
 echo Compiling Java files...
-javac -encoding UTF-8 -d "target\classes" -cp "libs\gson-2.10.1.jar;." @java_files.txt
+javac -encoding UTF-8 -d "target\classes" -cp "lib\gson-2.10.1.jar;." @java_files.txt
 
 if %errorlevel% == 0 (
-    echo Compilation successful!
-    echo Running the application...
-    java -cp "target\classes;libs\gson-2.10.1.jar" pt.ipleiria.estg.ei.dei.esoft.Main
+    echo Compilation successful!    echo Running the application...
+    java -cp "target\classes;lib\gson-2.10.1.jar" pt.ipleiria.estg.ei.dei.esoft.Main
 ) else (
     echo Compilation failed!
     pause
