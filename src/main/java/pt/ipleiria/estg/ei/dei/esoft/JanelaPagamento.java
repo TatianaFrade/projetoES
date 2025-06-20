@@ -13,9 +13,10 @@ import java.util.Map;
  * Janela para seleção de método de pagamento
  * Exibe valores e permite escolher entre cartão de crédito e multibanco
  */
-public class JanelaPagamento extends JPanel {
-    private JButton btnProximo;
+public class JanelaPagamento extends JPanel {    
+    private JButton btnPagar;
     private JButton btnVoltar;
+    private JButton btnCancelar;
     
     private Sessao sessao;
     private Lugar lugar;
@@ -209,7 +210,7 @@ public class JanelaPagamento extends JPanel {
             // Adicionar listener para habilitar o botão Próximo quando um método for selecionado
             radioButton.addActionListener(e -> {
                 metodoPagamentoSelecionado = metodo;
-                btnProximo.setEnabled(true);
+                btnPagar.setEnabled(true);
             });
             
             // Guardar a associação entre o botão e o método
@@ -244,21 +245,61 @@ public class JanelaPagamento extends JPanel {
         // Adicionar ao painel da janela
         add(painelPrincipal, BorderLayout.CENTER);
     }    private void configurarPainelBotoes(ActionListener actionListenerVoltar, ActionListener actionListenerProximo) {
-        // Usar o mesmo layout de JanelaSelecaoLugar
-        JPanel painelBotoes = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        // Layout para posicionar botões (Cancelar à esquerda, Voltar e Pagar à direita)
+        JPanel leftButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JPanel rightButtonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         
+        // Botão de cancelar à esquerda
+        btnCancelar = new JButton("Cancelar");        btnCancelar.addActionListener(e -> {
+            // Voltar para o menu principal
+            // Criar um array com as opções em português
+            Object[] opcoes = {"Sim", "Não"};
+            
+            int resposta = JOptionPane.showOptionDialog(
+                this,
+                "Tem certeza de que deseja cancelar a compra?",
+                "Confirmar Cancelamento",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                opcoes,
+                opcoes[1]  // "Não" como opção padrão (mais seguro)
+            );
+            
+            if (resposta == JOptionPane.YES_OPTION) {
+                Container topLevel = this.getParent();
+                while (!(topLevel instanceof JFrame) && topLevel != null) {
+                    topLevel = topLevel.getParent();
+                }
+                
+                if (topLevel instanceof JanelaPrincipal) {
+                    ((JanelaPrincipal) topLevel).voltarParaPainelPrincipal();
+                }
+            }
+        });
+        
+        // Botões de navegação
         btnVoltar = new JButton("Voltar");
-        btnProximo = new JButton("Próximo");
+        btnPagar = new JButton("Finalizar Pagamento");
         
-        // Desativar o botão Próximo inicialmente - será ativado quando um método de pagamento for selecionado
-        btnProximo.setEnabled(false);
+        // Desativar o botão Pagar inicialmente - será ativado quando um método de pagamento for selecionado
+        btnPagar.setEnabled(false);
         
         // Adicionar listeners
         btnVoltar.addActionListener(actionListenerVoltar);
-        btnProximo.addActionListener(actionListenerProximo);
+        btnPagar.addActionListener(actionListenerProximo);
         
-        painelBotoes.add(btnVoltar);
-        painelBotoes.add(btnProximo);
+        // Adicionar botões aos painéis
+        leftButtonPanel.add(btnCancelar);
+        rightButtonPanel.add(btnVoltar);
+        rightButtonPanel.add(btnPagar);
+        
+        // Criar painel principal para os botões
+        JPanel painelBotoes = new JPanel(new BorderLayout());
+        painelBotoes.add(leftButtonPanel, BorderLayout.WEST);
+        painelBotoes.add(rightButtonPanel, BorderLayout.EAST);
+        
+        add(painelBotoes, BorderLayout.SOUTH);
         
         add(painelBotoes, BorderLayout.SOUTH);
     }
@@ -300,14 +341,21 @@ public class JanelaPagamento extends JPanel {
     public double getSubtotal() {
         return subtotal;
     }
-    
-    // Getters para os botões
+      // Getters para os botões
     public JButton getBtnProximo() {
-        return btnProximo;
+        return btnPagar;
     }
     
     public JButton getBtnVoltar() {
         return btnVoltar;
+    }
+    
+    /**
+     * Obtém uma referência ao botão de pagamento.
+     * @return Botão de finalizar pagamento
+     */
+    public JButton getBtnPagar() {
+        return btnPagar;
     }
     
     /**
